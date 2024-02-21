@@ -22,8 +22,9 @@ newBatData = newBatData.drop(['Rk', 'Age', 'OPS+', 'GDP', 'HBP', 'SH', 'SF', 'IB
 newBatData = newBatData.add_prefix('b-')
 newBatData = newBatData.rename(columns={'b-Pos': 'Pos', 'b-Name': 'Name'})
 
-#Add uniform numbers from uniformData to end of rosterData
+#Add uniform numbers from uniformData to end of rosterData, and add bat data
 merge_rost_uni = newRosterData.merge(uniformData, how='inner', on='Name')
+merge_rost_uni = newRosterData.merge(newBatData, how='inner', on='Name')
 
 #Rename new rosterData columns
 merge_rost_uni = merge_rost_uni.rename(columns={'#': 'Uniform#'})
@@ -31,10 +32,9 @@ merge_rost_uni = merge_rost_uni.rename(columns={'#': 'Uniform#'})
 #Export data as a .csv in folder
 
 #   TEST AREA
-#print(uniformData)
 #print(rosterData)
 #pd.options.display.max_columns = None
-print(newBatData.keys())
+print(merge_rost_uni.keys())
 # test = merge_rost_uni[['Name', 'Age', 'B', 'T']]
-print(newBatData[:4])
+print(merge_rost_uni[:4])
 
